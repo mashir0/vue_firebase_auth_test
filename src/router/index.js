@@ -3,15 +3,22 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
+import firebase from 'firebase'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
+  // mode: 'history',
   routes: [
+    {
+      path: '*',
+      redirect: 'signin'
+    },
     {
       path: '/',
       name: 'HelloWorld',
-      component: HelloWorld
+      component: HelloWorld,
+      meta: { requiresAuth: true }
     },
     {
       path: '/signup',
@@ -25,3 +32,23 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  let currentUser = firebase.auth().currentUser
+
+  if (requiresAuth) {
+    if (!currentUser) {
+      next({
+        path: '/signin',
+        query: {redirectt: to.fullPath}
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // next()を常に呼び出すようにしてください。
+  }
+})
+
+export default router

@@ -3,9 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import { firestorePlugin } from 'vuefire'
 import firebase from 'firebase'
+import 'firebase/firestore'
 
 Vue.config.productionTip = false
+
+Vue.use(firestorePlugin)
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,7 +22,16 @@ const firebaseConfig = {
   appId: '1:1011970921645:web:d6207e8b1400cdbf10a224'
 }
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
+const firebaseApp = firebase.initializeApp(firebaseConfig)
+export const firebaseDb = firebaseApp.firestore()
+
+console.log('firebaseDb')
+firebaseDb.collection('comments').get().then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    console.log(`${doc.id} =>`)
+    console.log(doc.data())
+  })
+})
 
 /* eslint-disable no-new */
 new Vue({

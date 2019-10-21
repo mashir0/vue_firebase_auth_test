@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import firebase from 'firebase'
+
 import HelloWorld from '@/components/HelloWorld'
 import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
-import firebase from 'firebase'
+import Chatboard from '@/components/Chatboard'
+import Form from '@/components/Form'
 
 Vue.use(Router)
 
@@ -19,6 +22,15 @@ let router = new Router({
       name: 'HelloWorld',
       component: HelloWorld,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/chatboard',
+      name: 'Chatboard',
+      components: {
+        default: Chatboard,
+        a: Form
+      }
+      // component: Chatboard
     },
     {
       path: '/signup',

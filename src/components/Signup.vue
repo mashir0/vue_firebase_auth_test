@@ -27,7 +27,7 @@ export default {
         .then(user => {
           console.log(user)
           alert('Create account: ' + user.user.email)
-          this.$router.push('/')
+          this.$router.push('/chatboard')
         })
         .catch(err => {
           alert(err.message)

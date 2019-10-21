@@ -27,7 +27,8 @@ export default {
         .then(
           user => {
             alert('Success!')
-            this.$router.push('/')
+            // this.$router.push('/')
+            this.$router.push('/chatboard')
           },
           err => {
             alert(err.message)

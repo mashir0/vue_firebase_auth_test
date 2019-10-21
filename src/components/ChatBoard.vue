@@ -1,12 +1,13 @@
 <template>
   <ul>
     <p>hello fs</p>
-     {{comments}}
+     <!-- {{comments}} -->
     <li v-for="(comment, index) in comments" :key="index">
       <!-- <v-list-tile :key="index" avatar> -->
         <!-- <img :src="comment.avatar"> -->
-        <p>{{comment.createdAt.toDate().toLocaleString()}}</p>
-
+        <!-- <p>{{comment.createdAt.toDate().toLocaleString()}}</p> -->
+        <img :src=comment.avatar>
+        <p>{{comment.content}}</p>
       <!-- <v-divider :key="comment.id"></v-divider> -->
     </li>
   </ul>
